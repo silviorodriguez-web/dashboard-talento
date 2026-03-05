@@ -1,58 +1,45 @@
-%%writefile app.py
-import streamlit as st
-import pandas as pd
-import plotly.express as px
-
-st.set_page_config(page_title="Recruitment Intelligence 2026", layout="wide")
-
-# Estilo Dark Mode Profesional
-st.markdown("""
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Talent Intelligence Dashboard 2026</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-    .main { background-color: #0f172a; }
-    .stMetric { background-color: #1e293b; padding: 15px; border-radius: 10px; border: 1px solid #334155; }
+        body { background-color: #0f172a; color: white; font-family: sans-serif; padding: 40px; }
+        .card { background: #1e293b; border-radius: 15px; padding: 20px; margin: 10px; border: 1px solid #334155; }
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        h1 { color: #38bdf8; text-align: center; }
+        table { width: 100%; margin-top: 20px; border-collapse: collapse; }
+        th { background: #334155; padding: 10px; text-align: left; color: #38bdf8; }
+        td { padding: 10px; border-bottom: 1px solid #334155; }
     </style>
-    """, unsafe_allow_html=True)
-
-st.title("🚀 Intelligence Talent Dashboard")
-st.subheader("Análisis de Pipeline en Tiempo Real - Marzo 2026")
-
-# Datos maestros
-total_candidatos = 3482
-candidatos_data = [
-    {"Nombre": "Ignacio Cabana", "Perfil": "Geología Minera", "Origen": "Puna Mining SA", "Fecha": "2026-03-06"},
-    {"Nombre": "Rocío Alves", "Perfil": "UX/UI Lead", "Origen": "Medical Knowledge", "Fecha": "2026-03-06"},
-    {"Nombre": "Guillermo Palma", "Perfil": "Analista BI", "Origen": "Bayer / Red Link", "Fecha": "2026-03-05"},
-    {"Nombre": "Ruben Marcelo", "Perfil": "Infraestructura IT", "Origen": "Dante Card S.A.", "Fecha": "2026-03-03"},
-    {"Nombre": "Mauro Consilvio", "Perfil": "SQL Developer", "Origen": "Accusys Tech", "Fecha": "2026-03-06"}
-]
-
-# KPIs
-c1, c2, c3, c4 = st.columns(4)
-c1.metric("Candidatos Totales", f"{total_candidatos}", "+342 este mes")
-c2.metric("Sincronización API", "100%", "Online")
-c3.metric("Páginas Validadas", "117", "Marzo 2026")
-c4.metric("Tasa de Calidad", "88%", "Seniority Peak")
-
-# Gráficas
-col_left, col_right = st.columns(2)
-
-with col_left:
-    st.markdown("### Distribución de Talento")
-    df_pie = pd.DataFrame({
-        "Especialidad": ["Ingeniería & SQL", "UX/UI & Creativos", "BI & Data", "Operaciones"],
-        "Cantidad": [1218, 1392, 522, 350]
-    })
-    fig = px.pie(df_pie, values='Cantidad', names='Especialidad', hole=.4, color_discrete_sequence=px.colors.sequential.RdBu)
-    st.plotly_chart(fig, use_container_width=True)
-
-with col_right:
-    st.markdown("### Historial de Ingresos")
-    df_bar = pd.DataFrame({
-        "Mes": ["Oct", "Nov", "Dic", "Ene", "Feb", "Mar"],
-        "Candidatos": [1100, 1250, 1450, 1900, 2900, 3482]
-    })
-    fig2 = px.bar(df_bar, x='Mes', y='Candidatos', color_discrete_sequence=['#38bdf8'])
-    st.plotly_chart(fig2, use_container_width=True)
-
-st.markdown("### 🔍 Explorador de Perfiles Recientes (Marzo 2026)")
-st.table(pd.DataFrame(candidatos_data))
+</head>
+<body>
+    <h1>🚀 Intelligence Talent Dashboard - Marzo 2026</h1>
+    <div class="grid">
+        <div class="card"><h3>Total Candidatos</h3><h2 style="color:#38bdf8">3,482</h2></div>
+        <div class="card"><h3>Páginas API</h3><h2 style="color:#38bdf8">117</h2></div>
+        <div class="card"><h3>Estado</h3><h2 style="color:#22c55e">EN VIVO ✅</h2></div>
+    </div>
+    <div style="display:flex; gap:20px;">
+        <div class="card" style="flex:1"><h3>Distribución de Talento</h3><canvas id="pie"></canvas></div>
+        <div class="card" style="flex:1"><h3>Crecimiento Pipeline</h3><canvas id="bar"></canvas></div>
+    </div>
+    <div class="card">
+        <h3>🔍 Spotlight: Perfiles Senior (Marzo 2026)</h3>
+        <table>
+            <thead><tr><th>Candidato</th><th>Especialidad</th><th>Empresa Previa</th></tr></thead>
+            <tbody>
+                <tr><td><b>Ignacio Cabana</b></td><td>Geología Minera</td><td>Puna Mining SA</td></tr>
+                <tr><td><b>Rocío Alves</b></td><td>UX/UI Lead</td><td>Medical Knowledge</td></tr>
+                <tr><td><b>Ruben Marcelo</b></td><td>Infraestructura IT</td><td>Dante Card S.A.</td></tr>
+                <tr><td><b>Guillermo Palma</b></td><td>Analista BI</td><td>Bayer / Red Link</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        new Chart(document.getElementById('pie'), { type: 'doughnut', data: { labels: ['Ingeniería', 'Diseño', 'Data', 'Ops'], datasets: [{ data: [35, 40, 15, 10], backgroundColor: ['#0ea5e9', '#8b5cf6', '#ec4899', '#f59e0b'] }] } });
+        new Chart(document.getElementById('bar'), { type: 'bar', data: { labels: ['Ene', 'Feb', 'Mar'], datasets: [{ label: 'Ingresos', data: [1900, 2900, 3482], backgroundColor: '#38bdf8' }] } });
+    </script>
+</body>
+</html>
